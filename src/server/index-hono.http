@@ -1,1 +1,23 @@
-GET http://localhost:3000 HTTP/1.1
+GET http://localhost:3000/todo/list HTTP/1.1
+
+###
+
+POST http://localhost:3000/todo/create HTTP/1.1
+content-type: application/json
+
+{
+  "text": "task3"
+}
+
+###
+
+POST http://localhost:3000/todo/update/a3873b27-ef53-486d-bbc9-67d5a5a8acd7 HTTP/1.1
+content-type: application/json
+
+{
+  "completed": true
+}
+
+###
+
+POST http://localhost:3000/todo/delete/a3873b27-ef53-486d-bbc9-67d5a5a8acd7 HTTP/1.1
