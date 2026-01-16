@@ -4,7 +4,7 @@ import type { RouterClient } from "@orpc/server";
 import type { router } from "./router";
 
 const link = new RPCLink({
-  url: "http://localhost:3000/rpc",
+  url: "http://localhost:3001/rpc",
   headers: { Authorization: "Bearer token" },
   interceptors: [
     onError((error) => {
