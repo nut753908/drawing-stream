@@ -19,19 +19,19 @@ export const listTodo = os.handler(async () => {
 });
 
 export const createTodo = os
-  .input(TodoSchema.pick({ text: true }))
-  .handler(async ({ input }) => {
-    await db.insert(todoTable).values({ text: input.text });
-  });
-
-export const updateTodo = os
-  .input(TodoSchema.pick({ id: true, completed: true }))
+  .input(TodoSchema.omit({ id: true }))
   .handler(async ({ input }) => {
     await db
-      .update(todoTable)
-      .set({ completed: input.completed })
-      .where(eq(todoTable.id, input.id));
+      .insert(todoTable)
+      .values({ text: input.text, completed: input.completed });
   });
+
+export const updateTodo = os.input(TodoSchema).handler(async ({ input }) => {
+  await db
+    .update(todoTable)
+    .set({ text: input.text, completed: input.completed })
+    .where(eq(todoTable.id, input.id));
+});
 
 export const deleteTodo = os
   .input(TodoSchema.pick({ id: true }))
