@@ -13,24 +13,24 @@ function TodoComponent() {
 
   return (
     <div className="flex flex-col items-start space-y-3 p-6">
-      {todos.map((i1) => (
+      {todos.map((todo) => (
         <div
-          key={i1.id}
+          key={todo.id}
           className="flex flex-row items-center space-x-2 h-5 font-normal text-gray-400"
         >
           <button
             type="button"
             onClick={async () => {
               await orpc.todo.update({
-                id: i1.id,
-                text: i1.text,
-                completed: !i1.completed,
+                id: todo.id,
+                text: todo.text,
+                completed: !todo.completed,
               });
               router.invalidate();
             }}
             className="cursor-pointer"
           >
-            {i1.completed ? (
+            {todo.completed ? (
               <SquareCheck size={20}></SquareCheck>
             ) : (
               <Square size={20}></Square>
@@ -38,22 +38,22 @@ function TodoComponent() {
           </button>
           <input
             type="text"
-            value={i1.text}
+            value={todo.text}
             onChange={async (e) => {
               await orpc.todo.update({
-                id: i1.id,
+                id: todo.id,
                 text: e.target.value,
-                completed: i1.completed,
+                completed: todo.completed,
               });
               router.invalidate();
             }}
             placeholder="Some text"
-            className={`outline-none w-60 placeholder:text-gray-300 ${i1.completed ? "text-gray-400 line-through" : "text-gray-950"}`}
+            className={`outline-none w-60 placeholder:text-gray-300 ${todo.completed ? "text-gray-400 line-through" : "text-gray-950"}`}
           ></input>
           <button
             type="button"
             onClick={async () => {
-              await orpc.todo.delete({ id: i1.id });
+              await orpc.todo.delete({ id: todo.id });
               router.invalidate();
             }}
             className="cursor-pointer"
