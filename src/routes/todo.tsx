@@ -1,6 +1,6 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { Plus, Square, SquareCheck, X } from "lucide-react";
-import { orpc } from "@/server/client";
+import { orpc } from "@/server/orpc-client";
 
 export const Route = createFileRoute("/todo")({
   loader: ({ context: { orpc } }) => orpc.todo.list(),

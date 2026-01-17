@@ -3,7 +3,7 @@ import { os } from "@orpc/server";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import * as z from "zod";
-import { todoTable } from "./db/schema";
+import { todo } from "./db/schema/orpc";
 
 const db = drizzle(process.env.DATABASE_URL || "");
 
@@ -15,7 +15,7 @@ const TodoSchema = z.object({
 });
 
 export const listTodo = os.handler(async () => {
-  const todos = await db.select().from(todoTable).orderBy(todoTable.created_at);
+  const todos = await db.select().from(todo).orderBy(todo.created_at);
   return todos;
 });
 
@@ -23,7 +23,7 @@ export const createTodo = os
   .input(TodoSchema.pick({ text: true, completed: true }))
   .handler(async ({ input }) => {
     await db
-      .insert(todoTable)
+      .insert(todo)
       .values({ text: input.text, completed: input.completed });
   });
 
@@ -31,15 +31,15 @@ export const updateTodo = os
   .input(TodoSchema.pick({ id: true, text: true, completed: true }))
   .handler(async ({ input }) => {
     await db
-      .update(todoTable)
+      .update(todo)
       .set({ text: input.text, completed: input.completed })
-      .where(eq(todoTable.id, input.id));
+      .where(eq(todo.id, input.id));
   });
 
 export const deleteTodo = os
   .input(TodoSchema.pick({ id: true }))
   .handler(async ({ input }) => {
-    await db.delete(todoTable).where(eq(todoTable.id, input.id));
+    await db.delete(todo).where(eq(todo.id, input.id));
   });
 
 export const router = {

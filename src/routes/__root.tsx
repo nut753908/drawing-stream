@@ -1,7 +1,7 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import type { orpc } from "@/server/client";
+import type { orpc } from "@/server/orpc-client";
 import Header from "../components/Header";
 
 export interface RouterAppContext {
