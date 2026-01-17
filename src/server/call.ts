@@ -10,13 +10,13 @@ async function list() {
 async function main() {
   await list();
 
-  await orpc.todo.create({ text: "task3" });
+  await orpc.todo.create({ text: "task3", completed: false });
   const todos = await list();
 
   const id = todos.find((todo) => todo.text === "task3")?.id;
   if (id === undefined) return;
 
-  await orpc.todo.update({ id, completed: true });
+  await orpc.todo.update({ id, text: "task4", completed: true });
   await list();
 
   await orpc.todo.delete({ id });
