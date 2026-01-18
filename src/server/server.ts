@@ -3,15 +3,27 @@ import { onError } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { CORSPlugin } from "@orpc/server/plugins";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { auth } from "./auth";
 import { router } from "./orpc-router";
 
 const app = new Hono();
 
+app.use(
+  "/auth/*",
+  cors({
+    origin: "http://127.0.0.1:3000",
+    credentials: true,
+  }),
+);
 app.on(["POST", "GET"], "/auth/*", (c) => auth.handler(c.req.raw));
 
 const handler = new RPCHandler(router, {
-  plugins: [new CORSPlugin()],
+  plugins: [
+    new CORSPlugin({
+      origin: "http://127.0.0.1:3000",
+    }),
+  ],
   interceptors: [
     onError((error) => {
       console.error(error);
