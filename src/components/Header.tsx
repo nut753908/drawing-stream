@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Home, Menu, X } from "lucide-react";
+import { Home, LayoutDashboard, LogIn, Menu, Signature, X } from "lucide-react";
 import { useState } from "react";
 
 export default function Header() {
@@ -61,6 +61,45 @@ export default function Header() {
           {/* Demo Links Start */}
 
           {/* Demo Links End */}
+
+          <Link
+            to="/login"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                "flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
+            }}
+          >
+            <LogIn size={20} />
+            <span className="font-medium">Log in</span>
+          </Link>
+
+          <Link
+            to="/signup"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                "flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
+            }}
+          >
+            <Signature size={20} />
+            <span className="font-medium">Sign up</span>
+          </Link>
+
+          <Link
+            to="/dashboard"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                "flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
+            }}
+          >
+            <LayoutDashboard size={20} />
+            <span className="font-medium">Dashboard</span>
+          </Link>
         </nav>
       </aside>
     </>

@@ -7,15 +7,11 @@ import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
 import reportWebVitals from "./reportWebVitals.ts";
-import { orpc } from "./server/orpc-client.ts";
 
 // Create a new router instance
 const router = createRouter({
   routeTree,
-  context: {
-    auth: { isAuthenticated: false },
-    orpc,
-  },
+  context: {},
   defaultPreload: "intent",
   scrollRestoration: true,
   defaultStructuralSharing: true,
